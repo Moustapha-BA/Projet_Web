@@ -7,13 +7,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="bienImmobilier" />
-        <module name="serveur-registre" />
         <module name="clients" />
+        <module name="Locataire" />
+        <module name="serveur-registre" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Locataire" options="-parameters" />
       <module name="bienImmobilier" options="-parameters" />
       <module name="clients" options="-parameters" />
       <module name="serveur-registre" options="-parameters" />
