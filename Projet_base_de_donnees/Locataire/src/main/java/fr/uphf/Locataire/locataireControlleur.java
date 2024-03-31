@@ -23,5 +23,15 @@ public class locataireControlleur {
         return locataireService.getLocataireById(id);
     }
 
+    @PostMapping
+    public locataire addLocataire(@RequestBody locataire locataire) {
+        return locataireService.addLocataire(locataire);
+    }
+
+    @PutMapping
+    public locataire updateLocataire(@RequestBody locataire locataire) {
+        return locataireService.updateLocataire(locataire);
+    }
+
 
 }
