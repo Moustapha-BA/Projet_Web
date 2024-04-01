@@ -1,9 +1,7 @@
 package fr.uphf.Locataire;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+import java.util.List;
 
 @Entity
 @Builder
@@ -11,15 +9,22 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "locataire")
 public class locataire {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "nom")
     private String nom;
+    @Column(name = "prenom")
     private String prenom;
+    @Column(name = "adresse")
     private String adresse;
+    @Column(name = "numTel")
     private String numTel;
+
 
 
 }
