@@ -12,4 +12,5 @@ public class BienDTO {
     private int surface;
     private int nbPieces;
     private int loyer;
+
 }
