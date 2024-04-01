@@ -12,12 +12,16 @@ public class locataireService {
 
     @Autowired
     private  locataireRepository locataireRepository;
-    private WebClient.Builder webClient;
+    private WebClient webClient;
+
+    @Autowired
+    public locataireService(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8080").build();
+    }
 
     public List<locataire> getAllLocataires() {
         return locataireRepository.findAll();
     }
-
 
     public locataire getLocataireById(Long id) {
         return locataireRepository.findById(id).orElse(null);
@@ -31,14 +35,13 @@ public class locataireService {
         return locataireRepository.save(locataire);
     }
 
-    public void deleteLocataire(Long id) {
-        locataireRepository.deleteById(id);
+    public void deleteLocataire(Long id) { locataireRepository.deleteById(id);
     }
-/*
+
     public Mono<BienDTO> getBienImmobilier(String id) {
         return webClient.get()
-                .uri("http://localhost:8080/bienImmobilier/" + id)
+                .uri("/bienImmobilier/" + id)
                 .retrieve()
                 .bodyToMono(BienDTO.class);
-    } */
+    }
 }
