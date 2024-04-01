@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/Projet_base_de_donnees/serveur-registre/pom.xml" />
         <option value="$PROJECT_DIR$/Projet_base_de_donnees/clients/pom.xml" />
         <option value="$PROJECT_DIR$/Projet_base_de_donnees/Locataire/pom.xml" />
+        <option value="$PROJECT_DIR$/Projet_base_de_donnees/gateway/pom.xml" />
       </list>
     </option>
   </component>
