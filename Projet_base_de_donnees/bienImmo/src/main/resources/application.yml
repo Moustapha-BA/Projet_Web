@@ -1,0 +1,24 @@
+spring:
+    application:
+        name: bienImmo # le nom de notre application
+
+    datasource:
+        url: jdbc:h2:mem:testdb
+        driverClassName: org.h2.Driver
+        username: root
+        password: passer
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+    h2:
+        console:
+            enabled: true
+            path: /h2-console
+
+server:
+    servlet:
+        context-path: /bienImmo # le context path de notre application
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka #le lien vers le serveur eureka
