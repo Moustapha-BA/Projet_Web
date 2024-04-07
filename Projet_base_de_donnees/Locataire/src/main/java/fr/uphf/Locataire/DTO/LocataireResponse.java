@@ -1,4 +1,4 @@
-package fr.uphf.Locataire;
+package fr.uphf.Locataire.DTO;
 
 public class LocataireResponse {
     private Long id;

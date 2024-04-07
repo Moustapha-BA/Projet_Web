@@ -1,7 +1,6 @@
-package fr.uphf.Locataire;
+package fr.uphf.Locataire.model;
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.List;
 
 @Entity
 @Builder

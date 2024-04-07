@@ -1,5 +1,6 @@
-package fr.uphf.Locataire;
+package fr.uphf.Locataire.model;
 
+import fr.uphf.Locataire.DTO.BienDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -11,7 +12,7 @@ import java.util.List;
 public class locataireService {
 
     @Autowired
-    private  locataireRepository locataireRepository;
+    private fr.uphf.Locataire.model.locataireRepository locataireRepository;
     private WebClient webClient;
 
     @Autowired

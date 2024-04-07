@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reservation")
+@RequestMapping( "/reservation")
 public class reservationController {
     @Autowired
     private reservationService reservationService;
 
-    @GetMapping
+    @GetMapping("/reservation")
     @ResponseStatus(HttpStatus.OK)
     public List<reservation> getAllReservations() {
         return reservationService.getAllReservations();
@@ -25,9 +25,10 @@ public class reservationController {
         reservation reservation = reservationService.addReservation(creationReservationRequestODT);
         return new ResponseEntity<>(reservation, HttpStatus.CREATED);
     }
-    @GetMapping("reservation/locataire/{id}")
-    public List<reservation> getReservationsByLocataireId(@PathVariable Long id) {
-        return reservationService.getReservationsByLocataireId(id);
+    @GetMapping("/reservation/{locataire_id}")
+    public List<reservation> getReservationsByLocataireId(@PathVariable Long locataire_id) {
+        //System.out.println("Requête reçue pour lister les réservations du locataire " + id);
+        return reservationService.getReservationsByLocataireId(locataire_id);
     }
 
 }
