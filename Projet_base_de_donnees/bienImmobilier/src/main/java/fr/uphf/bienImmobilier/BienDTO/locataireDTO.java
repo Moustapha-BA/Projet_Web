@@ -1,4 +1,4 @@
-package fr.uphf.bienImmobilier.resources;
+package fr.uphf.bienImmobilier.BienDTO;
 
 import lombok.Getter;
 import lombok.Setter;
