@@ -9,12 +9,13 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "locataire")
 public class locataire {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long id;
+
 
     private String nom;
 

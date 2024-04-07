@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/Projet_base_de_donnees/Locataire/pom.xml" />
         <option value="$PROJECT_DIR$/Projet_base_de_donnees/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/Projet_base_de_donnees/bienImmo/pom.xml" />
+        <option value="$PROJECT_DIR$/Projet_base_de_donnees/reservation/pom.xml" />
       </list>
     </option>
   </component>
