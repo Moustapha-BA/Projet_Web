@@ -1,5 +1,7 @@
 package fr.uphf.bienImmobilier.resources;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,8 +9,10 @@ import java.util.List;
 
 @Getter
 @Setter
+@Entity
 public class BienImmobilier {
     public static class LocataireDTO {
+
         private Long id;
         private String nom;
         private String prenom;
@@ -19,6 +23,7 @@ public class BienImmobilier {
         }
     }
 
+    @Id
     private Long id;
     private String adresse;
     private String type;

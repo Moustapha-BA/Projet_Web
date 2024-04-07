@@ -1,6 +1,6 @@
 package fr.uphf.bienImmobilier.resources;
 
-import fr.uphf.bienImmobilier.BienService;
+import fr.uphf.bienImmobilier.resources.BienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

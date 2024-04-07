@@ -38,9 +38,9 @@ public class locataireService {
     public void deleteLocataire(Long id) { locataireRepository.deleteById(id);
     }
 
-    public Mono<BienDTO> getBienImmobilier(String id) {
+    public Mono<BienDTO> getBienByLocataire(Long locataireId) {
         return webClient.get()
-                .uri("/bienImmobilier/" + id)
+                .uri("http://localhost:8080/bienImmobilier/locataires/" + locataireId + "/biens")
                 .retrieve()
                 .bodyToMono(BienDTO.class);
     }
