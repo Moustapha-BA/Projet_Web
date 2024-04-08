@@ -1,7 +1,6 @@
 spring:
   application:
-    name: bienImmobilier
-
+    name: reservation
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
@@ -13,12 +12,15 @@ spring:
     console:
       enabled: true
       path: /h2-console
-
 server:
+  port: 8081
   servlet:
-    context-path: /bienImmobilier
-
+    context-path: /reservation
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+
+
+# Path: Projet_base_de_donnees/serveur-registre/src/main/resources/application.yml

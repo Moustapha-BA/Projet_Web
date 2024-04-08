@@ -1,5 +1,6 @@
-package fr.uphf.Locataire;
+package fr.uphf.Locataire.model;
 
+import fr.uphf.Locataire.DTO.BienDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -11,7 +12,7 @@ import java.util.List;
 public class locataireService {
 
     @Autowired
-    private  locataireRepository locataireRepository;
+    private fr.uphf.Locataire.model.locataireRepository locataireRepository;
     private WebClient webClient;
 
     @Autowired
@@ -38,9 +39,9 @@ public class locataireService {
     public void deleteLocataire(Long id) { locataireRepository.deleteById(id);
     }
 
-    public Mono<BienDTO> getBienImmobilier(String id) {
+    public Mono<BienDTO> getBienByLocataire(Long locataireId) {
         return webClient.get()
-                .uri("/bienImmobilier/" + id)
+                .uri("http://localhost:8080/bienImmobilier/locataires/" + locataireId + "/biens")
                 .retrieve()
                 .bodyToMono(BienDTO.class);
     }

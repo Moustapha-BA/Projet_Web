@@ -7,8 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="bienImmobilier" />
         <module name="clients" />
+        <module name="reservation" />
+        <module name="bienImmobilier" />
         <module name="Locataire" />
         <module name="bienImmo" />
         <module name="serveur-registre" />
@@ -23,6 +24,7 @@
       <module name="bienImmobilier" options="-parameters" />
       <module name="clients" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="reservation" options="-parameters" />
       <module name="serveur-registre" options="-parameters" />
     </option>
   </component>

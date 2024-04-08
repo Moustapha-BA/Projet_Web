@@ -1,4 +1,4 @@
-package fr.uphf.Locataire;
+package fr.uphf.Locataire.DTO;
 
 import lombok.Getter;
 import lombok.Setter;

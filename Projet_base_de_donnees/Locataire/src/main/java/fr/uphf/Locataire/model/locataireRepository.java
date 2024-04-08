@@ -1,4 +1,4 @@
-package fr.uphf.Locataire;
+package fr.uphf.Locataire.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
