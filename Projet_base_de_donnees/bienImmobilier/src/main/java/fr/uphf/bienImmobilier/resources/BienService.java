@@ -1,4 +1,4 @@
-package fr.uphf.bienImmobilier;
+package fr.uphf.bienImmobilier.resources;
 
 import fr.uphf.bienImmobilier.resources.BienImmobilier;
 import fr.uphf.bienImmobilier.resources.BienRepository;

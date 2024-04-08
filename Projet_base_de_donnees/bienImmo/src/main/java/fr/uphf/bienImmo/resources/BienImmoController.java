@@ -1,22 +1,61 @@
 package fr.uphf.bienImmo.resources;
 
 import fr.uphf.bienImmo.services.BienImmoApiService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping
+import java.util.List;
+
 @RestController
+@RequestMapping("/biensImmo")
 public class BienImmoController {
 
-    @Autowired
     private BienImmoApiService bienImmoApiService;
 
+    public BienImmoController(BienImmoApiService bienImmoApiService) {
+        this.bienImmoApiService = bienImmoApiService;
+    }
 
     @GetMapping
-    public ResponseEntity<BienImmo[]> listerBiensImmo() {
-        return ResponseEntity.ok(this.bienImmoApiService.getAllBiensImmo());
+    public ResponseEntity<List<BienImmo>> listerBiensImmo() {
+        return ResponseEntity.ok(this.bienImmoApiService.listerBiensImmo());
     }
+
+
+    //méthode GetMapping pour lister un bienImmo par son id
+    @GetMapping("/{idBienImmo}")
+    public ResponseEntity<BienImmo> recupererBienImmo(@PathVariable("idBienImmo") Long idBienImmo) {
+        try {
+            return ResponseEntity.ok(this.bienImmoApiService.recupererBienImmoById(idBienImmo));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    //méthode ajouter un BienImmo
+    @PostMapping
+    public ResponseEntity ajouterBienImmo(@RequestBody CreationBienImmoRequestODT creationBienImmoRequestODT) {
+        try {
+            return ResponseEntity.ok(this.bienImmoApiService.ajouterBienImmo(creationBienImmoRequestODT));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Erreur lors de l'ajout du bienImmo");
+        }
+    }
+
+    //méthode pour modifier un BienImmo
+    @PutMapping("/{idBienImmo}")
+    public ResponseEntity modifierBienImmo(@PathVariable("idBienImmo") Long idBienImmo, @RequestBody CreationBienImmoRequestODT creationBienImmoRequestODT) {
+        try {
+            return ResponseEntity.ok(this.bienImmoApiService.modifierBienImmo(idBienImmo, creationBienImmoRequestODT));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Erreur lors de la modification du bienImmo");
+        }
+    }
+
+
+
+
+    /*
 
     //Get un bienImmo par son id
     @GetMapping("/{idBienImmo}")
@@ -43,5 +82,6 @@ public class BienImmoController {
             return ResponseEntity.internalServerError().body("Erreur lors de la modification du bienImmo");
         }
     }
+    */
 
 }
