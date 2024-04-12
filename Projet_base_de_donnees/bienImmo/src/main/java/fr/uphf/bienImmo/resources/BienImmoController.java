@@ -52,6 +52,17 @@ public class BienImmoController {
         }
     }
 
+    //méthode pour supprimer un BienImmo
+    @DeleteMapping("/{idBienImmo}")
+    public ResponseEntity supprimerBienImmo(@PathVariable("idBienImmo") Long idBienImmo) {
+        try {
+            this.bienImmoApiService.supprimerBienImmo(idBienImmo);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Erreur lors de la suppression du bienImmo");
+        }
+    }
+
 
 
 

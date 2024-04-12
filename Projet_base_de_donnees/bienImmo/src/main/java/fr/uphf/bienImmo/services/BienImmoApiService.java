@@ -83,6 +83,17 @@ public class BienImmoApiService {
     }
 
 
+    //service pour supprimer un bienImmo
+    public void supprimerBienImmo(Long idBienImmo){
+        Optional<BienImmo> bienImmoOption = bienImmoRepository.findById(idBienImmo);
+        if(bienImmoOption.isPresent()){
+            bienImmoRepository.deleteById(idBienImmo);
+        } else {
+            throw new RuntimeException("Le bienImmo n'existe pas");
+        }
+    }
+
+
 
     public BienImmo[] getAllBiensImmo() {
         return webClient.baseUrl("http://bienImmo/")
