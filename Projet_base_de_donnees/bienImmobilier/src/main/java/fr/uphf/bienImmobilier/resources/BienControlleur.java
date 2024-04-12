@@ -39,11 +39,5 @@ public class BienControlleur {
         bienService.deleteBien(id);
     }
 
-    @GetMapping("/locataires/{id}/biens")
-    public List<BienImmobilier> getBiensByLocataire(@PathVariable Long id) {
-        return bienService.getAllBiens().stream()
-                .filter(bien -> bien.getLocataires().stream()
-                        .anyMatch(locataire -> locataire.getId().equals(id)))
-                .collect(Collectors.toList());
-    }
+
 }
