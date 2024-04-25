@@ -1,5 +1,6 @@
 package fr.uphf.Locataire.model;
 
+import fr.uphf.Locataire.DTO.BienImmoDTO;
 import fr.uphf.Locataire.DTO.reservationDTO;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,30 +17,33 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/locataires")
-public class locataireControlleur {
+public class LocataireControlleur {
 
     @Autowired
-    private fr.uphf.Locataire.model.locataireService locataireService;
+    private LocataireService locataireService;
+
     @Autowired
     private WebClient.Builder webClient;
+
+
     @GetMapping
-    public List<locataire> getAllLocataires() {
+    public List<Locataire> getAllLocataires() {
         return locataireService.getAllLocataires();
     }
 
     @GetMapping("/{id}")
-    public locataire getLocataireById(@PathVariable Long id) {
+    public Locataire getLocataireById(@PathVariable Long id) {
         return locataireService.getLocataireById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public locataire addLocataire(@RequestBody locataire locataire) {
+    public Locataire addLocataire(@RequestBody Locataire locataire) {
         return locataireService.addLocataire(locataire);
     }
 
     @PutMapping
-    public locataire updateLocataire(@RequestBody locataire locataire) {
+    public Locataire updateLocataire(@RequestBody Locataire locataire) {
         return locataireService.updateLocataire(locataire);
     }
     @Builder
@@ -60,4 +64,16 @@ public class locataireControlleur {
                 .block();
         return ResponseEntity.ok(locataireDetailDTO.builder().id(id).reservations(Arrays.asList(reservationsFromApi)).build());
     }
+
+
+
+    //méthode pour lister les biensImmo qui existe dans le microservice bienImmo
+
+    @GetMapping("/biensImmo")
+    public ResponseEntity<List<BienImmoDTO>> getBiensImmo() {
+        BienImmoDTO biensImmoFromApi = this.locataireService.listerBiensImmo();
+
+        return ResponseEntity.ok(List.of(biensImmoFromApi));
+    }
+
 }

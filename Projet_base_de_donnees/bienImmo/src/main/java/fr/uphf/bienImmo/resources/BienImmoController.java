@@ -18,7 +18,8 @@ public class BienImmoController {
 
     @GetMapping
     public ResponseEntity<List<BienImmo>> listerBiensImmo() {
-        return ResponseEntity.ok(this.bienImmoApiService.listerBiensImmo());
+        List<BienImmo> bienImmoFromApi = this.bienImmoApiService.listerBiensImmo();
+        return ResponseEntity.ok(bienImmoFromApi);
     }
 
 

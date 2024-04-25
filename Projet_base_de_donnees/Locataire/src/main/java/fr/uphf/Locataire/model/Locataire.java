@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "locataire")
-public class locataire {
+public class Locataire {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
