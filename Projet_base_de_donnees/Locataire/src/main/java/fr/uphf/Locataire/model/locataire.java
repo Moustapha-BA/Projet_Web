@@ -15,7 +15,6 @@ public class locataire {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     private String nom;
 
     private String prenom;
@@ -23,7 +22,6 @@ public class locataire {
     private String adresse;
 
     private String numTel;
-
 
 
 }
