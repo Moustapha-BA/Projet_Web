@@ -1,5 +1,6 @@
 package fr.uphf.Locataire.model;
 
+import fr.uphf.Locataire.DTO.BienDTO;
 import fr.uphf.Locataire.DTO.reservationDTO;
 import lombok.Builder;
 import lombok.Getter;
@@ -59,5 +60,16 @@ public class locataireControlleur {
                 .bodyToMono(reservationDTO[].class)
                 .block();
         return ResponseEntity.ok(locataireDetailDTO.builder().id(id).reservations(Arrays.asList(reservationsFromApi)).build());
+    }
+
+
+    //méthode Controller pour lister les biens d'un locataire
+    @GetMapping("/{idLocataire}/biens")
+    public ResponseEntity<List<BienDTO>> getBiensByLocataireId(@PathVariable Long idLocataire) {
+        List<BienDTO> biens = locataireService.listerBiensLocataire(idLocataire);
+        if (biens.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(biens);
     }
 }

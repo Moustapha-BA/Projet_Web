@@ -1,16 +1,31 @@
 package fr.uphf.Locataire.DTO;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 @Getter
 @Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BienDTO {
-    private Long id;
+    private Long idBienImmo;
     private String adresse;
     private String type;
     private int surface;
     private int nbPieces;
     private int loyer;
+    private LocataireDTO locataire;
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class LocataireDTO {
+        Long idLocataire;
+    }
 
 }
