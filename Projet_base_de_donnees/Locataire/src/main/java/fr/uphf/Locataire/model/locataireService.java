@@ -2,6 +2,7 @@ package fr.uphf.Locataire.model;
 
 import fr.uphf.Locataire.DTO.BienDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -13,12 +14,14 @@ public class locataireService {
 
     @Autowired
     private fr.uphf.Locataire.model.locataireRepository locataireRepository;
-    private WebClient webClient;
 
+    @Autowired
+    private WebClient.Builder webClient;
+/*
     @Autowired
     public locataireService(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl("http://localhost:8080").build();
-    }
+    }*/
 
     public List<locataire> getAllLocataires() {
         return locataireRepository.findAll();
@@ -47,8 +50,11 @@ public class locataireService {
     }*/
 
     public List<BienDTO> listerBiensLocataire(Long idLocataire) {
-        return webClient.get()
-                .uri("http://bienImmo/biensImmo/locataires/" + idLocataire + "/biens")
+        return webClient.baseUrl("http://bienImmo/")
+                .build()
+                .get()
+                .uri("bienImmo/biensImmo/locataires/" + idLocataire + "/biens")
+                .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToFlux(BienDTO.class)
                 .collectList()

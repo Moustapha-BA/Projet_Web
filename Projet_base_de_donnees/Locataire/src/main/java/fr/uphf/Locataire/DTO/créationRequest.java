@@ -1,9 +1,14 @@
 package fr.uphf.Locataire.DTO;
 
 
-import lombok.Data;
+import lombok.*;
 
+@Getter
+@Setter
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class créationRequest {
     private String nom;
     private String prenom;

@@ -15,7 +15,7 @@ public class BienImmo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idBienImmo")
-    private Long id;
+    private Long idBienImmo;
 
     private String adresse;
 

@@ -1,5 +1,14 @@
 package fr.uphf.Locataire.DTO;
 
+
+import lombok.*;
+
+@Builder
+@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LocataireResponse {
     private Long id;
     private String nom;

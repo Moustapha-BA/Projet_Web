@@ -49,7 +49,7 @@ public class BienImmoApiService {
                 .build();
         BienImmo bienImmoSauvegarder = bienImmoRepository.save(bienImmoAAjouter);
         return CreationBienImmoResponseODT.builder()
-                .idBienImmo(bienImmoSauvegarder.getId())
+                .idBienImmo(bienImmoSauvegarder.getIdBienImmo())
                 .adresse(bienImmoSauvegarder.getAdresse())
                 .type(bienImmoSauvegarder.getType())
                 .surface(bienImmoSauvegarder.getSurface())
@@ -73,7 +73,7 @@ public class BienImmoApiService {
 
             BienImmo bienImmoModifier = bienImmoRepository.save(bienImmo);
             return CreationBienImmoResponseODT.builder()
-                    .idBienImmo(bienImmoModifier.getId())
+                    .idBienImmo(bienImmoModifier.getIdBienImmo())
                     .adresse(bienImmoModifier.getAdresse())
                     .type(bienImmoModifier.getType())
                     .surface(bienImmoModifier.getSurface())
@@ -107,7 +107,7 @@ public class BienImmoApiService {
     public List<BienImmoDTO> listerBiensImmoParLocataire(Long idLocataire) {
         List<BienImmo> biens = bienImmoRepository.findByIdLocataire(idLocataire);
         return biens.stream().map(bienImmo -> BienImmoDTO.builder()
-                .idBienImmo(bienImmo.getId())
+                .idBienImmo(bienImmo.getIdBienImmo())
                 .adresse(bienImmo.getAdresse())
                 .type(bienImmo.getType())
                 .surface(bienImmo.getSurface())
