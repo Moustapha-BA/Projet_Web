@@ -38,11 +38,20 @@ public class locataireService {
 
     public void deleteLocataire(Long id) { locataireRepository.deleteById(id);
     }
-
+/*
     public Mono<BienDTO> getBienByLocataire(Long locataireId) {
         return webClient.get()
                 .uri("http://localhost:8080/bienImmobilier/locataires/" + locataireId + "/biens")
                 .retrieve()
                 .bodyToMono(BienDTO.class);
+    }*/
+
+    public List<BienDTO> listerBiensLocataire(Long idLocataire) {
+        return webClient.get()
+                .uri("http://bienImmo/biensImmo/locataires/" + idLocataire + "/biens")
+                .retrieve()
+                .bodyToFlux(BienDTO.class)
+                .collectList()
+                .block();
     }
 }

@@ -3,6 +3,7 @@ package fr.uphf.bienImmo.resources;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @Entity
 @Data
 @Getter
@@ -25,4 +26,7 @@ public class BienImmo {
     private int nbPieces;
 
     private int loyer;
+
+    @Column(name = "idLocataire")
+    private Long idLocataire;
 }

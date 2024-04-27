@@ -14,4 +14,5 @@ public class CreationBienImmoResponseODT {
     private int surface;
     private int nbPieces;
     private int loyer;
+    private BienImmoDTO.LocataireDTO locataire;
 }

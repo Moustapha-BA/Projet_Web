@@ -1,10 +1,8 @@
 package fr.uphf.bienImmo.services;
 
-import fr.uphf.bienImmo.resources.BienImmo;
-import fr.uphf.bienImmo.resources.BienImmoRepository;
-import fr.uphf.bienImmo.resources.CreationBienImmoRequestODT;
-import fr.uphf.bienImmo.resources.CreationBienImmoResponseODT;
+import fr.uphf.bienImmo.resources.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -21,7 +19,7 @@ public class BienImmoApiService {
     private BienImmoRepository bienImmoRepository;
 
 
-    public BienImmoApiService (BienImmoRepository bienImmoRepository) {
+    public BienImmoApiService(BienImmoRepository bienImmoRepository) {
         this.bienImmoRepository = bienImmoRepository;
     }
 
@@ -47,6 +45,7 @@ public class BienImmoApiService {
                 .surface(creationBienImmoRequestODT.getSurface())
                 .loyer(creationBienImmoRequestODT.getLoyer())
                 .nbPieces(creationBienImmoRequestODT.getNbPieces())
+                .idLocataire(creationBienImmoRequestODT.getLocataire().getIdLocataire())
                 .build();
         BienImmo bienImmoSauvegarder = bienImmoRepository.save(bienImmoAAjouter);
         return CreationBienImmoResponseODT.builder()
@@ -56,19 +55,21 @@ public class BienImmoApiService {
                 .surface(bienImmoSauvegarder.getSurface())
                 .loyer(bienImmoSauvegarder.getLoyer())
                 .nbPieces(bienImmoSauvegarder.getNbPieces())
+                .locataire(bienImmoSauvegarder.getIdLocataire() != null ? BienImmoDTO.LocataireDTO.builder().idLocataire(bienImmoSauvegarder.getIdLocataire()).build() : null)
                 .build();
     }
 
     //service pour modifier un bienImmo
-    public CreationBienImmoResponseODT modifierBienImmo(Long idBienImmo, CreationBienImmoRequestODT creationBienImmoRequestODT){
+    public CreationBienImmoResponseODT modifierBienImmo(Long idBienImmo, CreationBienImmoRequestODT creationBienImmoRequestODT) {
         Optional<BienImmo> bienImmoOption = bienImmoRepository.findById(idBienImmo);
-        if(bienImmoOption.isPresent()){
+        if (bienImmoOption.isPresent()) {
             BienImmo bienImmo = bienImmoOption.get();
             bienImmo.setAdresse(creationBienImmoRequestODT.getAdresse());
             bienImmo.setType(creationBienImmoRequestODT.getType());
             bienImmo.setSurface(creationBienImmoRequestODT.getSurface());
             bienImmo.setLoyer(creationBienImmoRequestODT.getLoyer());
             bienImmo.setNbPieces(creationBienImmoRequestODT.getNbPieces());
+            bienImmo.setIdLocataire(creationBienImmoRequestODT.getLocataire().getIdLocataire());
 
             BienImmo bienImmoModifier = bienImmoRepository.save(bienImmo);
             return CreationBienImmoResponseODT.builder()
@@ -78,6 +79,7 @@ public class BienImmoApiService {
                     .surface(bienImmoModifier.getSurface())
                     .loyer(bienImmoModifier.getLoyer())
                     .nbPieces(bienImmoModifier.getNbPieces())
+                    .locataire(bienImmoModifier.getIdLocataire() != null ? BienImmoDTO.LocataireDTO.builder().idLocataire(bienImmoModifier.getIdLocataire()).build() : null)
                     .build();
         } else {
             throw new RuntimeException("Le bienImmo n'existe pas");
@@ -88,9 +90,8 @@ public class BienImmoApiService {
 
     //service pour supprimer un bienImmo
 
+
     //********* services pour communiquer avec le microservice Locataire *********
-
-
     //ajouter un locataire à un bienImmo
     public CreationBienImmoResponseODT addLocataireToBienImmo(Long idBienImmo, Long idLocataire) {
         return webClient.baseUrl("http://bienImmo/")
@@ -100,5 +101,19 @@ public class BienImmoApiService {
                 .retrieve()
                 .bodyToMono(CreationBienImmoResponseODT.class)
                 .block();
+    }
+
+    // méthode de service pour lister les biensImmo d'un locataire
+    public List<BienImmoDTO> listerBiensImmoParLocataire(Long idLocataire) {
+        List<BienImmo> biens = bienImmoRepository.findByIdLocataire(idLocataire);
+        return biens.stream().map(bienImmo -> BienImmoDTO.builder()
+                .idBienImmo(bienImmo.getId())
+                .adresse(bienImmo.getAdresse())
+                .type(bienImmo.getType())
+                .surface(bienImmo.getSurface())
+                .loyer(bienImmo.getLoyer())
+                .nbPieces(bienImmo.getNbPieces())
+                .locataire(bienImmo.getIdLocataire() != null ? BienImmoDTO.LocataireDTO.builder().idLocataire(bienImmo.getIdLocataire()).build() : null)
+                .build()).toList();
     }
 }

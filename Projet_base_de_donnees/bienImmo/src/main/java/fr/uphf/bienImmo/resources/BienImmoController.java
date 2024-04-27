@@ -52,4 +52,19 @@ public class BienImmoController {
         }
     }
 
+     //Ajout d'un endpoint pour lister less biensImmos d'un locataire
+    @GetMapping("/locataires/{idLocataire}/biens")
+    public ResponseEntity<List<BienImmoDTO>> listerBiensImmoParLocataireId(@PathVariable("idLocataire") Long idLocataire) {
+        try {
+            List<BienImmoDTO> biens = bienImmoApiService.listerBiensImmoParLocataire(idLocataire);
+            if (biens.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(biens);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+
 }
