@@ -1,8 +1,12 @@
 package fr.uphf.bienImmo.services;
 
+import fr.uphf.bienImmo.config.RabbitMQConfig;
 import fr.uphf.bienImmo.resources.*;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -18,10 +22,29 @@ public class BienImmoApiService {
     @Autowired
     private BienImmoRepository bienImmoRepository;
 
-
     public BienImmoApiService(BienImmoRepository bienImmoRepository) {
         this.bienImmoRepository = bienImmoRepository;
     }
+
+
+    //RabbitMQ pour la communication entre les microservices
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @Scheduled(fixedDelay = 5000)
+    public void sendBienImmo() {
+        BienImmoDTO bienImmo = BienImmoDTO.builder()
+                .adresse("adresse")
+                .type("type")
+                .surface(100)
+                .loyer(1000)
+                .nbPieces(5)
+                .locataire(BienImmoDTO.LocataireDTO.builder().idLocataire(1L).build())
+                .build();
+        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, bienImmo);
+        System.out.println("Send msg = " + bienImmo);
+    }
+
 
 
     //********* services internes au microservice bienImmo *********

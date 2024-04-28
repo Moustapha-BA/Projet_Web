@@ -1,11 +1,13 @@
 package fr.uphf.Locataire.model;
 
 import fr.uphf.Locataire.DTO.BienDTO;
+import fr.uphf.Locataire.config.RabbitMQConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
 import java.util.List;
 
@@ -60,4 +62,14 @@ public class locataireService {
                 .collectList()
                 .block();
     }
+
+
+    //Configuration en tant que Consumer RabbitMQ pour la communication entre les microservices
+    @RabbitListener(queues = "#{T(fr.uphf.Locataire.config.RabbitMQConfig).QUEUE}", messageConverter = "producerJackson2MessageConverter")
+    public void receiveBienImmo(BienDTO bienImmo) {
+        System.out.println("Received msg = " + bienImmo);
+
+    }
+
+
 }

@@ -52,7 +52,7 @@ public class BienImmoController {
         }
     }
 
-     //Ajout d'un endpoint pour lister less biensImmos d'un locataire
+     //Ajout d'un API pour lister less biensImmos d'un locataire
     @GetMapping("/locataires/{idLocataire}/biens")
     public ResponseEntity<List<BienImmoDTO>> listerBiensImmoParLocataireId(@PathVariable("idLocataire") Long idLocataire) {
         try {
