@@ -9,18 +9,24 @@
         <outputRelativeToContentRoot value="true" />
         <module name="clients" />
         <module name="reservation" />
-        <module name="bienImmobilier" />
         <module name="Locataire" />
-        <module name="bienImmo" />
+        <module name="bienImmo (2)" />
         <module name="serveur-registre" />
         <module name="gateway" />
+        <module name="bienImmo (1)" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bienImmo" target="17" />
+      <module name="bienImmobilier" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Locataire" options="-parameters" />
       <module name="bienImmo" options="-parameters" />
+      <module name="bienImmo (1)" options="-parameters" />
+      <module name="bienImmo (2)" options="-parameters" />
       <module name="bienImmobilier" options="-parameters" />
       <module name="clients" options="-parameters" />
       <module name="gateway" options="-parameters" />
