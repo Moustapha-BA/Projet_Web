@@ -44,9 +44,9 @@ public class BienImmoController {
 
     //méthode pour modifier un BienImmo
     @PutMapping("/{idBienImmo}")
-    public ResponseEntity modifierBienImmo(@PathVariable("idBienImmo") Long idBienImmo, @RequestBody CreationBienImmoRequestODT creationBienImmoRequestODT) {
+    public ResponseEntity modifierBienImmo(@PathVariable("idBienImmo") Long idBienImmo, @RequestBody CreationBienImmoResponseODT creationBienImmoResponseODT) {
         try {
-            return ResponseEntity.ok(this.bienImmoApiService.modifierBienImmo(idBienImmo, creationBienImmoRequestODT));
+            return ResponseEntity.ok(this.bienImmoApiService.modifierBienImmo(idBienImmo, creationBienImmoResponseODT));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Erreur lors de la modification du bienImmo");
         }

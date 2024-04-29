@@ -65,7 +65,7 @@ public class locataireService {
 
 
     //Configuration en tant que Consumer RabbitMQ pour la communication entre les microservices
-    @RabbitListener(queues = "#{T(fr.uphf.Locataire.config.RabbitMQConfig).QUEUE}", messageConverter = "producerJackson2MessageConverter")
+    @RabbitListener(queues = "#{T(fr.uphf.Locataire.config.RabbitMQConfig).QUEUE}")
     public void receiveBienImmo(BienDTO bienImmo) {
         System.out.println("Received msg = " + bienImmo);
 

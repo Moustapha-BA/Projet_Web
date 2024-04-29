@@ -23,11 +23,12 @@ public class BienImmoDTO {
 
         @Getter
         @Setter
+        @Data
         @Builder
         @NoArgsConstructor
         @AllArgsConstructor
         public static class LocataireDTO {
-                Long idLocataire;
+                private Long idLocataire;
         }
 }
 

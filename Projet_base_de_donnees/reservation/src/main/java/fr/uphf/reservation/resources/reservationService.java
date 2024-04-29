@@ -1,4 +1,5 @@
 package fr.uphf.reservation.resources;
+import fr.uphf.reservation.DTO.config.BienDTO;
 import fr.uphf.reservation.DTO.config.RabbitMQConfig;
 import fr.uphf.reservation.DTO.reservationRequest;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -32,10 +33,11 @@ public class reservationService {
     }
 
 
-    //Configuration en tant que Consumer RabbitMQ pour recevoir les messages
-    @RabbitListener(queues = RabbitMQConfig.QUEUE)
-    public void receiveBienImmo(String message) {
-        System.out.println("Received msg = " + message);
+    //Configuration en tant que Consumer RabbitMQ pour recevoir les messages provenant du microservice BienImmo
+    @RabbitListener(queues = "#{T(fr.uphf.reservation.DTO.config.RabbitMQConfig).QUEUE}")
+    public void receiveBienImmo(BienDTO bienImmo) {
+        System.out.println("Received msg = " + bienImmo);
+
     }
 
 }
