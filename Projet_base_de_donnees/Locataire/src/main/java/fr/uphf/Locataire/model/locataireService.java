@@ -1,6 +1,7 @@
 package fr.uphf.Locataire.model;
 
 import fr.uphf.Locataire.DTO.BienDTO;
+import fr.uphf.Locataire.DTO.LocataireResponse;
 import fr.uphf.Locataire.config.RabbitMQConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -10,6 +11,7 @@ import reactor.core.publisher.Mono;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class locataireService {
@@ -19,11 +21,6 @@ public class locataireService {
 
     @Autowired
     private WebClient.Builder webClient;
-/*
-    @Autowired
-    public locataireService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8080").build();
-    }*/
 
     public List<locataire> getAllLocataires() {
         return locataireRepository.findAll();
@@ -37,19 +34,32 @@ public class locataireService {
         return locataireRepository.save(locataire);
     }
 
-    public locataire updateLocataire(locataire locataire) {
-        return locataireRepository.save(locataire);
+    //Méthode PUT pour modofier un locataire
+    public LocataireResponse updateLocataire(Long id, LocataireResponse locatairResponse){
+        Optional<locataire> locataireOption = locataireRepository.findById(id);
+        if(locataireOption.isPresent()){
+            locataire locataire = locataireOption.get();
+            locataire.setId(locatairResponse.getId());
+            locataire.setNom(locatairResponse.getNom());
+            locataire.setPrenom(locatairResponse.getPrenom());
+            locataire.setAdresse(locatairResponse.getAdresse());
+            locataire.setNumTel(locatairResponse.getNumTel());
+            locataire locataireModifier = locataireRepository.save(locataire);
+            return LocataireResponse.builder()
+                    .id(locataireModifier.getId())
+                    .nom(locataireModifier.getNom())
+                    .prenom(locataireModifier.getPrenom())
+                    .adresse(locataireModifier.getAdresse())
+                    .numTel(locataireModifier.getNumTel())
+                    .build();
+        }else {
+            throw new RuntimeException("Le locataire n'existe pas");
+        }
+
     }
 
     public void deleteLocataire(Long id) { locataireRepository.deleteById(id);
     }
-/*
-    public Mono<BienDTO> getBienByLocataire(Long locataireId) {
-        return webClient.get()
-                .uri("http://localhost:8080/bienImmobilier/locataires/" + locataireId + "/biens")
-                .retrieve()
-                .bodyToMono(BienDTO.class);
-    }*/
 
     public List<BienDTO> listerBiensLocataire(Long idLocataire) {
         return webClient.baseUrl("http://bienImmo/")

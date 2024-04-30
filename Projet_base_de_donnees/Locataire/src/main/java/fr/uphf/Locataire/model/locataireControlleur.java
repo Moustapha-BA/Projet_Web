@@ -1,6 +1,7 @@
 package fr.uphf.Locataire.model;
 
 import fr.uphf.Locataire.DTO.BienDTO;
+import fr.uphf.Locataire.DTO.LocataireResponse;
 import fr.uphf.Locataire.DTO.reservationDTO;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,9 +40,14 @@ public class locataireControlleur {
         return locataireService.addLocataire(locataire);
     }
 
-    @PutMapping
-    public locataire updateLocataire(@RequestBody locataire locataire) {
-        return locataireService.updateLocataire(locataire);
+    @PutMapping("/{id}")
+    public ResponseEntity  updateLocataire(@PathVariable("id")Long id, @RequestBody LocataireResponse locataireResponse) {
+        try {
+                return ResponseEntity.ok(this.locataireService.updateLocataire(id, locataireResponse));
+            } catch (Exception e) {
+                return ResponseEntity.internalServerError().body("Erreur lors de la modification du locataire");
+            }
+
     }
     @Builder
     @Getter
