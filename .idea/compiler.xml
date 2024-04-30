@@ -9,13 +9,15 @@
         <outputRelativeToContentRoot value="true" />
         <module name="clients" />
         <module name="reservation" />
-        <module name="bienImmobilier" />
         <module name="Locataire" />
         <module name="bienImmo" />
         <module name="serveur-registre" />
         <module name="gateway" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bienImmobilier" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

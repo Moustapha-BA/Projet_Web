@@ -1,8 +1,11 @@
 package fr.uphf.bienImmo.resources;
 
 import fr.uphf.bienImmo.services.BienImmoApiService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -10,7 +13,10 @@ import java.util.List;
 @RequestMapping("/biensImmo")
 public class BienImmoController {
 
+    @Autowired
     private BienImmoApiService bienImmoApiService;
+
+
 
     public BienImmoController(BienImmoApiService bienImmoApiService) {
         this.bienImmoApiService = bienImmoApiService;
@@ -33,8 +39,9 @@ public class BienImmoController {
     }
 
     //méthode ajouter un BienImmo
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public ResponseEntity ajouterBienImmo(@RequestBody CreationBienImmoRequestODT creationBienImmoRequestODT) {
+    public ResponseEntity<Object> ajouterBienImmo(@RequestBody CreationBienImmoRequestODT creationBienImmoRequestODT) {
         try {
             return ResponseEntity.ok(this.bienImmoApiService.ajouterBienImmo(creationBienImmoRequestODT));
         } catch (Exception e) {
@@ -63,6 +70,15 @@ public class BienImmoController {
             return ResponseEntity.ok(biens);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
+        }
+    }
+    @GetMapping("/{idBienImmo}/reservations")
+    public Flux<ReservationResponse> getReservationsByBienImmoId(@PathVariable Long idBienImmo) {
+        try {
+            return bienImmoApiService.getReservationsByBienImmoId(idBienImmo);
+        } catch (Exception e) {
+            // Vous pouvez loguer l'exception ici ou renvoyer une réponse d'erreur
+            return Flux.error(e);
         }
     }
 

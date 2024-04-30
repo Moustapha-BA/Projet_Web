@@ -50,10 +50,10 @@ public class locataireService {
     }*/
 
     public List<BienDTO> listerBiensLocataire(Long idLocataire) {
-        return webClient.baseUrl("http://bienImmo/")
+        return webClient
                 .build()
                 .get()
-                .uri("bienImmo/biensImmo/locataires/" + idLocataire + "/biens")
+                .uri("http://localhost:8083/reservation/reservation/reservation/"+idLocataire)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToFlux(BienDTO.class)

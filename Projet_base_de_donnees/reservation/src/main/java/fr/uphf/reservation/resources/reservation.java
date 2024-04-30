@@ -1,7 +1,8 @@
-// 1. Création de l'entité Reservation
 package fr.uphf.reservation.resources;
 
-import jakarta.persistence.*;
+
+
+import javax.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;

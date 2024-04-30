@@ -1,10 +1,12 @@
 package fr.uphf.bienImmo.services;
-
+import fr.uphf.bienImmo.resources.BienImmoDTO;
 import fr.uphf.bienImmo.resources.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +20,8 @@ public class BienImmoApiService {
     @Autowired
     private BienImmoRepository bienImmoRepository;
 
+    @Autowired
+    private MessageSender messageSender;
 
     public BienImmoApiService(BienImmoRepository bienImmoRepository) {
         this.bienImmoRepository = bienImmoRepository;
@@ -48,6 +52,12 @@ public class BienImmoApiService {
                 .idLocataire(creationBienImmoRequestODT.getLocataire().getIdLocataire())
                 .build();
         BienImmo bienImmoSauvegarder = bienImmoRepository.save(bienImmoAAjouter);
+        //Cette ligne est bloquante si le receiver ne recoit pas le message  : messageSender.sendMessage("bienImmo", "bienImmo.created", bienImmoSauvegarder);
+        try {
+            messageSender.sendMessage("bienImmo", "bienImmo.created", bienImmoSauvegarder);
+        } catch (Exception e) {
+            // Log the exception or handle it in some other way
+        }
         return CreationBienImmoResponseODT.builder()
                 .idBienImmo(bienImmoSauvegarder.getIdBienImmo())
                 .adresse(bienImmoSauvegarder.getAdresse())
@@ -115,5 +125,12 @@ public class BienImmoApiService {
                 .nbPieces(bienImmo.getNbPieces())
                 .locataire(bienImmo.getIdLocataire() != null ? BienImmoDTO.LocataireDTO.builder().idLocataire(bienImmo.getIdLocataire()).build() : null)
                 .build()).toList();
+    }
+    public Flux<ReservationResponse> getReservationsByBienImmoId(Long idBienImmo) {
+        return webClient.build()
+                .get()
+                .uri("http://localhost:8083/reservation/reservation/reservation/" + idBienImmo)
+                .retrieve()
+                .bodyToFlux(ReservationResponse.class);
     }
 }

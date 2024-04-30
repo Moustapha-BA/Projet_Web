@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@Builder
 public class reservationDTO {
     private Long id;
     private Long locataireId;

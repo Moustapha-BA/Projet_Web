@@ -28,4 +28,5 @@ public class reservationService {
     public List<reservation> getReservationsByLocataireId(Long id) {
         return reservationRepository.findAllByLocataireId(id);
     }
+    //lister reservation par locataireI
 }

@@ -1,7 +1,10 @@
 package fr.uphf.bienImmo.resources;
 
+
 import jakarta.persistence.*;
 import lombok.*;
+
+
 
 
 @Entity

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class locataireControlleur {
         private List<reservationDTO> reservations;
     }
     @GetMapping("/reservations/{id}")
-    public ResponseEntity<locataireDetailDTO> getReservationsByLocataireId(@PathVariable Long id) {
+    public ResponseEntity<reservationDTO> getReservationsByLocataireId(@PathVariable Long id) {
         reservationDTO[] reservationsFromApi = webClient.build()
                 .get()
                 .uri("http://localhost:8081/reservation/reservation/reservation/" + id)
@@ -59,7 +60,9 @@ public class locataireControlleur {
                 .retrieve()
                 .bodyToMono(reservationDTO[].class)
                 .block();
-        return ResponseEntity.ok(locataireDetailDTO.builder().id(id).reservations(Arrays.asList(reservationsFromApi)).build());
+        return ResponseEntity.ok(reservationDTO.builder()
+                .id(id)
+                .build());
     }
 
 

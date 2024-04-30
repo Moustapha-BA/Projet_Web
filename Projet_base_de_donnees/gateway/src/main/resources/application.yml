@@ -1,0 +1,27 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+    gateway:
+      routes:
+        - id: bienImmo_route
+          uri: lb://bienImmo
+          predicates:
+            - Path=/bienImmo/**
+        - id: reservation_route
+          uri: lb://reservation
+          predicates:
+            - Path=/reservation/**
+        - id: locataire_route
+          uri: lb://locataire
+          predicates:
+            - Path=/locataire/**
+
+server:
+    port: 8082
+    servlet:
+        context-path: /gateway
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
