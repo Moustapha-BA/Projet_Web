@@ -1,5 +1,8 @@
 package fr.uphf.reservation.resources;
+import fr.uphf.reservation.DTO.config.BienDTO;
+import fr.uphf.reservation.DTO.config.RabbitMQConfig;
 import fr.uphf.reservation.DTO.reservationRequest;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +31,13 @@ public class reservationService {
     public List<reservation> getReservationsByLocataireId(Long id) {
         return reservationRepository.findAllByLocataireId(id);
     }
-    //lister reservation par locataireI
+
+
+    //Configuration en tant que Consumer RabbitMQ pour recevoir les messages provenant du microservice BienImmo
+    @RabbitListener(queues = "#{T(fr.uphf.reservation.DTO.config.RabbitMQConfig).QUEUE}")
+    public void receiveBienImmo(BienDTO bienImmo) {
+        System.out.println("Received msg = " + bienImmo);
+
+    }
+
 }

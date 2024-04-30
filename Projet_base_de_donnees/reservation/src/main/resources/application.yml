@@ -17,6 +17,8 @@ spring:
     port: 5672
     username: guest
     password: guest
+
+
 server:
   port: 8083
   servlet:
@@ -24,7 +26,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://localhost:8761/eureka/
 
 
 

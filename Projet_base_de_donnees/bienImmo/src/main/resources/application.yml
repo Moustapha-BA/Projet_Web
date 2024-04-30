@@ -1,6 +1,7 @@
 spring:
     application:
-        name: bienImmo # the name of our application
+        name: bienImmo # le nom de notre application
+
     datasource:
         url: jdbc:h2:mem:bienImmoDb
         driverClassName: org.h2.Driver
@@ -12,20 +13,21 @@ spring:
         console:
             enabled: true
             path: /h2-console
+
     rabbitmq:
         host: localhost
         port: 5672
         username: guest
         password: guest
-        queue:
-            name: bienImmoQueue
 
 server:
     port: 8081
     servlet:
-        context-path: /bienImmo # the context path of our application
+        context-path: /bienImmo # le context path de notre application
 
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://localhost:8761/eureka # the link to the eureka server
+            defaultZone: http://localhost:8761/eureka #le lien vers le serveur eureka
+    instance:
+        instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

@@ -51,15 +51,15 @@ public class BienImmoController {
 
     //méthode pour modifier un BienImmo
     @PutMapping("/{idBienImmo}")
-    public ResponseEntity modifierBienImmo(@PathVariable("idBienImmo") Long idBienImmo, @RequestBody CreationBienImmoRequestODT creationBienImmoRequestODT) {
+    public ResponseEntity modifierBienImmo(@PathVariable("idBienImmo") Long idBienImmo, @RequestBody CreationBienImmoResponseODT creationBienImmoResponseODT) {
         try {
-            return ResponseEntity.ok(this.bienImmoApiService.modifierBienImmo(idBienImmo, creationBienImmoRequestODT));
+            return ResponseEntity.ok(this.bienImmoApiService.modifierBienImmo(idBienImmo, creationBienImmoResponseODT));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Erreur lors de la modification du bienImmo");
         }
     }
 
-     //Ajout d'un endpoint pour lister less biensImmos d'un locataire
+     //Ajout d'un API pour lister less biensImmos d'un locataire
     @GetMapping("/locataires/{idLocataire}/biens")
     public ResponseEntity<List<BienImmoDTO>> listerBiensImmoParLocataireId(@PathVariable("idLocataire") Long idLocataire) {
         try {

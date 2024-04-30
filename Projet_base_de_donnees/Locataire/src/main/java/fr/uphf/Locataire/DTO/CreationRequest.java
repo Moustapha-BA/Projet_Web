@@ -9,7 +9,8 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class créationRequest {
+public class CreationRequest {
+
     private String nom;
     private String prenom;
     private String adresse;
