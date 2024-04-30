@@ -104,6 +104,7 @@ public class BienImmoApiService {
             BienImmo bienImmoModifier = bienImmoRepository.save(bienImmo);
             //appel de la fonction pour envoyer un bienImmo à RabbitMQ
             sendBienImmo(bienImmoModifier);
+            System.out.println("Remarque");
             return CreationBienImmoResponseODT.builder()
                     .idBienImmo(bienImmoModifier.getIdBienImmo())
                     .adresse(bienImmoModifier.getAdresse())

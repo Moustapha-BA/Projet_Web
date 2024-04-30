@@ -32,4 +32,5 @@ public class BienImmo {
 
     @Column(name = "idLocataire")
     private Long idLocataire;
+
 }
